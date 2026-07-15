@@ -106,7 +106,7 @@ spec:
                 name: environment-config
             - configMapRef:
                 name: service-api-config
-          image: abdallahhegazy/bank-of-anthos-frontend:PLACEHOLDER
+          image: abdallahhegazy/bank-of-anthos-frontend:aa423bd
           livenessProbe:
             httpGet:
               path: /ready
