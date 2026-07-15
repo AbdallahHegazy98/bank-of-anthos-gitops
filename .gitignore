@@ -11,3 +11,6 @@ crash.log
 crash.*.log
 
 *.tfplan
+
+* jwtRS256.key
+* jwtRS256.key.pub
