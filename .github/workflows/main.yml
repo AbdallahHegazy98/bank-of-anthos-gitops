@@ -10,14 +10,9 @@ permissions:
 
 jobs:
   build-and-deploy:
-    # Prevent the workflow from triggering itself after it commits
     if: github.actor != 'github-actions[bot]'
 
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: src/frontend
 
     env:
       IMAGE_NAME: abdallahhegazy/bank-of-anthos-frontend
@@ -37,10 +32,12 @@ jobs:
         uses: astral-sh/setup-uv@v3
 
       - name: Install dependencies
+        working-directory: src/frontend
         run: |
           uv sync
 
       - name: Validate Python files
+        working-directory: src/frontend
         run: |
           python -m compileall .
 
@@ -52,14 +49,15 @@ jobs:
 
       - name: Extract short SHA
         id: vars
-        run: |
-          echo "sha_short=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+        run: echo "sha_short=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
       - name: Build Docker image
+        working-directory: src/frontend
         run: |
           docker build \
             -t $IMAGE_NAME:latest \
-            -t $IMAGE_NAME:${{ steps.vars.outputs.sha_short }} .
+            -t $IMAGE_NAME:${{ steps.vars.outputs.sha_short }} \
+            .
 
       - name: Push Docker images
         run: |
@@ -67,21 +65,23 @@ jobs:
           docker push $IMAGE_NAME:${{ steps.vars.outputs.sha_short }}
 
       - name: Update Kubernetes Manifest
-        working-directory: .
         run: |
           sed -i "s|image:.*|image: $IMAGE_NAME:${{ steps.vars.outputs.sha_short }}|g" kubernetes-manifests/frontend.yaml
 
-      - name: Commit updated manifest
+      - name: Commit manifest changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
           git add kubernetes-manifests/frontend.yaml
 
-          git diff --cached --quiet && exit 0
+          if git diff --cached --quiet; then
+            echo "No manifest changes."
+            exit 0
+          fi
 
           git commit -m "Deploy frontend ${{ steps.vars.outputs.sha_short }}"
 
-      - name: Push manifest update
+      - name: Push changes
         run: |
           git push
