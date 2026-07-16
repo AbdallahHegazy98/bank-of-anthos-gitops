@@ -106,7 +106,7 @@ spec:
                 name: environment-config
             - configMapRef:
                 name: service-api-config
-          image: abdallahhegazy/bank-of-anthos-frontend:fca50d3
+          image: abdallahhegazy/bank-of-anthos-frontend:0513270
           livenessProbe:
             httpGet:
               path: /ready
