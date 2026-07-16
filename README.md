@@ -16,6 +16,21 @@ The goal of this project was not only to deploy an application, but to understan
 
 The project was built progressively through multiple stages:
 
+## Bank of Anthos Running Locally
+
+<img src="./docs/img//login.png" width="900">
+
+## Argo CD GitOps Deployment
+
+<img src="./docs/img//gitops.png" width="900">
+
+## Monitoring Stack
+
+<img src="./docs/img//monitoring.png" width="900">
+
+## Service architecture
+
+<img src="./docs/img//architecture.png" width="900">
 
 ---
 
@@ -395,10 +410,4 @@ Document Root Cause
         --------------------------------
         |              |               |
    Frontend        Backend        Database
-        |
-        |
- Prometheus + Grafana
-        |
-        |
- Kubernetes Scaling
  ## Made with love by Abdallah Hegazy
