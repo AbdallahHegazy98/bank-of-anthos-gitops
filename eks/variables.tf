@@ -19,12 +19,12 @@ variable "instance_type" {
 
 
 variable "desired_nodes" {
-  default = 2
+  default = 3
 }
 
 
 variable "min_nodes" {
-  default = 1
+  default = 3
 }
 
 
