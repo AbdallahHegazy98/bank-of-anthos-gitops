@@ -409,5 +409,5 @@ Document Root Cause
                          |
         --------------------------------
         |              |               |
-   Frontend        Backend        Database
+     Frontend        Backend        Database
  ## Made with love by Abdallah Hegazy
