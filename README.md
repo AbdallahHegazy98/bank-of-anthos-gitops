@@ -384,7 +384,7 @@ Document Root Cause
                  GitHub Actions CI
                          |
                          |
-              Container Registry
+                 Container Registry
                          |
                          |
                       ArgoCD
@@ -398,7 +398,7 @@ Document Root Cause
         |
         |
  Prometheus + Grafana
-
         |
         |
  Kubernetes Scaling
+ ## Made with love by Abdallah Hegazy
